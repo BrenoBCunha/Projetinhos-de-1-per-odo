@@ -58,7 +58,7 @@ def botton():
         btn_contato.pack(pady = 3)
     
 
-def click(n):
+def click():
     global btn_contato
     if btn_contato.cget('fg_color') == "#2B2B2B":
         btn_contato.configure(fg_color = "#4D4D4D", width = 200)
@@ -73,12 +73,6 @@ def exclui():
 def clear():
     txt_detalhes.delete('0.0', 'end')
 
-def enter_press(event):
-    if contatos == []:
-        add()
-    else:
-        search()
-
 
 ### Interface Tkinter ###
 
@@ -87,7 +81,6 @@ root.geometry('780x600')
 root.title('Contatos')
 ctk.set_appearance_mode("system")
 root.resizable(width = False, height = False)
-root.bind('<Return>', enter_press)
 
 lbl_nome = ctk.CTkLabel(root, text = 'Primeiro nome: ', font = ('Arial', 15))
 lbl_nome.place(x = 30, y = 20)
