@@ -1,127 +1,68 @@
-valor = '0'
-ans = 0
+resu = 0
 
-def key_press(event, label):
+def key_press(event, etr):
     k = event.char
-    press(k, label)
+    press(k, etr)
 
-def enter_press(event, label):
-    calcular(label)
+def enter_press(event, etr):
+    calcular(etr)
 
-def back_press(event, label):
-    delete(label)
+def back_press(event, etr):
+    delete(etr)
 
-def esc_press(event, label):
-    press('c', label)
+def esc_press(event, etr):
+    press('c', etr)    
 
-def press(n, label):
-    global valor
-    global ans
-    valor = label['text']
-    copia = valor.replace('.', '')   # exclui a pontuação do valor 
-    if n == 'c':
-        valor = '0'
-    elif valor == '0':
-        valor = f'{n}'
-    elif ans != 0 and copia.isnumeric() == True:
-        valor = f'{n}'
-        ans = 0
-    else:
-        valor += f'{n}'
-    label['text'] = valor
+def delete(etr):
+    etr.config(state='normal')
+    etr.delete(len(etr.get()) - 1)
+    etr.config(state='readonly')
 
-def delete(label):
-    global valor
-    if valor != '0':
-        valor = valor[:-1]
-        if valor == '':
-            valor = '0'
-            label['text'] = f'{valor}'
-        label['text'] = f'{valor}'
-    else:
-        valor = '0'
-        label['text'] = f'{valor}'
+def pow(etr):
+    press('^', etr)
+    press('2', etr)
 
-def operador(n, label):
-    global valor
-    global ans
-    if valor == '0':
-        valor = valor
-    elif '%' in valor:
-        valor = valor
-    elif valor[len(valor)-1] not in '+-x/.%':
-        valor += f'{n}'
-        label['text'] = valor
-    else:
-        valor = valor
-
-def ponto(label):
-    global valor
-    global ans
-    if ans != 0:
-        valor = '0.'
-        ans = 0
-        label['text'] = valor
-    elif valor[len(valor)-1] not in '+-x/.' and '.' not in valor:
-        valor += '.'
-        label['text'] = valor
-    else:
-        valor = valor
-
-def raiz(label):
+def raiz(etr):
     from math import sqrt
-    global valor
-    calcular(label)
-    resu = sqrt(float(valor))
-    valor = f'{resu:.9}'
-    label['text'] = valor
+    global resu
+    etr.config(state='normal')
+    resu = sqrt(resu)
+    etr.delete(0, 'end')
+    etr.insert(0, resu)
+    etr.config(state='readonly')
 
-def calcular(label):
-    global valor
-    global ans
-    operadores = list(filter(lambda x: x.isnumeric() == False and x != '.', valor))
-    numeros = ''.join(list(map(lambda x: ' ' if x.isnumeric()==False and x != '.' else x, valor))).split()
-    while len(operadores) > 0:
-        for i, e in enumerate(operadores):
-            if e == '/':
-                resu = float(numeros[i])
-                resu /= float(numeros[i+1])
-                operadores.pop(i)
-                numeros.insert(i, resu)
-                numeros.pop(i+1)
-                numeros.pop(i+1)
-        for i, e in enumerate(operadores):
-            if e == 'x':
-                resu = float(numeros[i])
-                resu *= float(numeros[i+1])
-                operadores.pop(i)
-                numeros.insert(i, resu)
-                numeros.pop(i+1)
-                numeros.pop(i+1)
-        for i, e in enumerate(operadores):
-            if e == '+':
-                resu = float(numeros[i])
-                resu += float(numeros[i+1])
-                operadores.pop(i)
-                numeros.insert(i, resu)
-                numeros.pop(i+1)
-                numeros.pop(i+1)
-        for i, e in enumerate(operadores):
-            if e == '-':
-                resu = float(numeros[i])
-                resu -= float(numeros[i+1])
-                operadores.pop(i)
-                numeros.insert(i, resu)
-                numeros.pop(i+1)
-                numeros.pop(i+1)
-        for i, e in enumerate(operadores):
-            if e == '%':
-                resu = float(numeros[i])
-                resu = float(numeros[i+1]) * resu/100
-                operadores.pop(i)
-                numeros.insert(i, resu)
-                numeros.pop(i+1)
-                numeros.pop(i+1)
-    ans = resu
-    valor = f'{resu:.9}'
-    label['text'] = valor
+def calcular(etr):
+    global resu
+    etr.config(state='normal')
+    try:
+        resu = eval(etr.get().replace('x', '*').replace('^', '**'))
+    except:
+        resu = 'error'
+        etr.delete(0, 'end')
+        etr.insert('end', resu)
+        resu = 0
+    else:
+        etr.delete(0, 'end')
+        etr.insert('end', resu)
+    etr.config(state='readonly')
+
+def press(n, etr):
+    global resu
+    etr.config(state='normal')
+    if n == 'c':
+            resu = 0
+            etr.delete(0, 'end')
+    elif resu != 0 and n not in 'x/+-.%^' and etr.get()[-1] not in 'x/+-.%^()':
+        resu = 0 
+        etr.delete(0, 'end')
+        etr.insert('end', n)
+    else:
+        if n in 'x/+-.%()^' or n.isnumeric() == True:
+            if etr.get() == '':
+                if n not in 'x/+-.%^':
+                    etr.insert('end', n)
+            elif etr.get()[-1] in 'x/+-.%^' and n in 'x/+-.%^':
+                resu=0
+            else:
+                etr.insert('end', n)
+    etr.config(state='readonly')
