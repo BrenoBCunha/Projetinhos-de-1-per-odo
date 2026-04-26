@@ -77,7 +77,7 @@ btn_div.place(x=146, y=176)
 btn_mul = ctk.CTkButton(root, text='x', width=w, height=h, font=fnt, fg_color=cor_op, hover_color=cor_op_hover, command=lambda: fun.press('x', etr_result))
 btn_mul.place(x=146, y=218)
 
-btn_igu = ctk.CTkButton(root, text='=', width=w, height=h, font=fnt, fg_color='#00A8FF', hover_color='#008BCC', command=lambda: fun.calcular(etr_result))
+btn_igu = ctk.CTkButton(root, text='=', width=w, height=h, font=fnt, fg_color="#F38015", hover_color="#9C520D", command=lambda: fun.calcular(etr_result))
 btn_igu.place(x=146, y=260)
 
 btn_c = ctk.CTkButton(root, text='C', width=w, height=h, font=fnt, fg_color=cor_op, hover_color=cor_op_hover, command=lambda: fun.press('c', etr_result))
