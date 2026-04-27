@@ -28,7 +28,7 @@ frame_pesquisa.grid_columnconfigure(0, weight=1)
 entry_pesquisa = ctk.CTkEntry(frame_pesquisa, placeholder_text="Pesquisar por nome ou número...")
 entry_pesquisa.grid(row=0, column=0, sticky="ew", padx=(0, 10))
 
-btn_pesquisar = ctk.CTkButton(frame_pesquisa, text="Pesquisar", width=100)
+btn_pesquisar = ctk.CTkButton(frame_pesquisa, text="Pesquisar", width=100, command= lambda: f.pesquisar(entry_pesquisa, frame_lista, root))
 btn_pesquisar.grid(row=0, column=1)
 
 # 2. Área da Lista de Contatos (Frame com Scroll)

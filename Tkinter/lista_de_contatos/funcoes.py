@@ -1,5 +1,6 @@
 info = dict()
 contatos = list()
+botoes = list()
 
 # ==== Configurações janela de contato ===
 def abrir_novo_contato(frame, root):
@@ -67,14 +68,16 @@ def adicionar(*etr):
     info.clear()
     criar_contato(etr[5], etr[6])
     etr[4].destroy()
-    print(contatos)
 
 def criar_contato(janela, root):
+    global botoes
     import customtkinter as ctk
     global contatos
     contato = ctk.CTkButton(janela, text = contatos[-1]['nome'], fg_color="#414141", hover_color="#666666", width=450, anchor= 'w')
     contato.pack(side='top', fill='x', padx=10, pady=5)
     contato.configure(command= lambda n=contatos[-1], c=contato: press(n, c,  janela, root))
+    botoes.append(contato)
+    print(botoes)
 
 def press(n, c,  janela, root):
     global contatos
@@ -165,7 +168,6 @@ def salvar(n, c, *etr):
     n['endereco'] = etr[3].get()
     c.configure(text=n['nome'])
     etr[4].destroy()
-    print(contatos)
 
 
 def excluir(n, contato, add):
@@ -173,11 +175,19 @@ def excluir(n, contato, add):
     contatos.pop(contatos.index(n))
     contato.destroy()
     add.destroy()
-    print(contatos)
 
 
-    
-
-
-
-        
+def pesquisar(etr, janela, root):
+    global botoes
+    global contatos
+    nome = etr.get()
+    n=0
+    c=0
+    for contato in contatos:
+        if contato['nome'] == nome:
+            n = contato
+    for b in botoes:
+        if b.cget('text') == nome:
+            c = b
+    if n != 0 and c != 0:
+        press(n, c, janela, root)
