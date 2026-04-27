@@ -35,7 +35,7 @@ btn_pesquisar.grid(row=0, column=1)
 frame_lista = ctk.CTkScrollableFrame(frame_principal, label_text="Meus Contatos")
 frame_lista.grid(row=1, column=0, sticky="nsew")
 
-btn_adicionar = ctk.CTkButton(frame_principal, text='+', font=('Arial', 40), width = 50, command= lambda: f.abrir_novo_contato(frame_principal))
+btn_adicionar = ctk.CTkButton(frame_principal, text='+', font=('Arial', 40), width = 50, command= lambda: f.abrir_novo_contato(frame_lista, root))
 btn_adicionar.place(x = 390, y = 490)
 
 root.mainloop()
