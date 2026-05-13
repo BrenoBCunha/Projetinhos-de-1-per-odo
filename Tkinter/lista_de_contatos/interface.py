@@ -5,7 +5,7 @@ import funcoes as f
 root = ctk.CTk()
 root.title('Lista de Contatos')
 root.geometry('500x600')
-ctk.set_appearance_mode("system")
+ctk.set_appearance_mode("Dark")
 root.resizable(width = False, height = False)
 
 
