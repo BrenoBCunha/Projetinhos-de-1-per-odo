@@ -7,6 +7,8 @@ with open('palavras.csv', 'r', encoding='utf-8') as file:
     for linha in leitor:
         palavras = linha
 
+
+
 sorteada = []
 mostrador = []
 verificador = []
@@ -15,6 +17,7 @@ contador = 0
 for char in choice(palavras).upper():
     sorteada.append(char)
 
+sorteada = ['I', 'R', 'M', 'A', 'O']
 
 print('='*60)
 print(f"{'DESCUBRA A PALAVRA SECRETA':^60}")
@@ -43,10 +46,14 @@ while verificador!= sorteada:
 
     if len(palpite) <= len(sorteada):
         acertos = list(map(lambda x, y: f'\033[42m {x} \033[m' if x == y else y, sorteada, palpite))
-        mostrador = list(map(lambda x, y: f'\033[43m {y} \033[m' if y in sorteada and palpite.count(y) <= sorteada.count(y) else y, sorteada, acertos))
-        for i, x in enumerate(mostrador):
-            if 'm' not in x:
-                mostrador[i] = f'\033[40m {x} \033[m'
+
+        for x in acertos:
+            if x in sorteada and mostrador.count(f'\033[43m {x} \033[m') < sorteada.count(x) and mostrador.count(f'\033[42m {x} \033[m') < sorteada.count(x):
+                mostrador.append(f'\033[43m {x} \033[m')
+            elif 'm' in x:
+                mostrador.append(x)
+            else:
+                mostrador.append(f'\033[40m {x} \033[m')
 
     else:
         acertos = list(map(lambda x, y: f'\033[42m {y} \033[m' if x == y else x, palpite, sorteada))
