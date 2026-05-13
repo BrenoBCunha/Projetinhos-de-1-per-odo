@@ -1,7 +1,11 @@
 from random import choice
 import csv
+import os
 
-with open('palavras.csv', 'r', encoding='utf-8') as file:
+diretorio_atual = os.path.dirname(__file__)
+caminho_csv = os.path.join(diretorio_atual, 'palavras.csv')
+
+with open(caminho_csv, 'r', encoding='utf-8') as file:
     leitor = csv.reader(file)
     next(leitor)
     for linha in leitor:
