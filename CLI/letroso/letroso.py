@@ -17,13 +17,12 @@ contador = 0
 for char in choice(palavras).upper():
     sorteada.append(char)
 
-sorteada = ['I', 'R', 'M', 'A', 'O']
 
 print('='*60)
 print(f"{'DESCUBRA A PALAVRA SECRETA':^60}")
 print('='*60)
 print(f'{'Digite uma pavra e descubra quais letras estão corretas':^60}\n')
-print('\033[42m  \033[m - LETRA CORRETA E NA POSIÇÃO CORRETA')
+print('\033[42m  \033[m - LETRA CORRETA NA POSIÇÃO CORRETA')
 print('\033[43m  \033[m - LETRA CORRETA NA POSIÇÃO ERRADA\n')
 print('='*60)
 
