@@ -12,7 +12,6 @@ with open(caminho_csv, 'r', encoding='utf-8') as file:
         palavras = linha
 
 
-
 sorteada = []
 mostrador = []
 verificador = []
