@@ -3,7 +3,7 @@ import csv
 import os
 
 diretorio_atual = os.path.dirname(__file__)
-caminho_csv = os.path.join(diretorio_atual, 'palavras.csv')
+caminho_csv = os.path.join(diretorio_atual, 'palavras.csv') 
 
 with open(caminho_csv, 'r', encoding='utf-8') as file:
     leitor = csv.reader(file)
